@@ -32,21 +32,18 @@ class ProdutoDAO:
         except SQLAlchemyError as e:
             print(f"Erro ao criar o produto: {str(e)}")
             self.session.rollback()
-        finally:
-            self.session.close()
 
     def buscar_produto_por_id(self, produto_id):
         try:
             return self.session.query(ProdutoInstacia).filter(ProdutoInstacia.id == produto_id).first()
         except SQLAlchemyError as e:
             print(f"Erro ao buscar o produto: {str(e)}")
-        finally:
-            self.session.close()
 
 
     def atualizar_produto(self, produto_id, nome, preco, sku):
         try:
             produto = self.buscar_produto_por_id(produto_id)
+            print(produto)
             if (produto):
                 produto.nome = nome
                 produto.preco = preco
@@ -58,8 +55,6 @@ class ProdutoDAO:
         except SQLAlchemyError as e:
             print(f"Erro ao atualizar o produto: {str(e)}")
             self.session.rollback()
-        finally:
-            self.session.close()
 
     def deletar_produto(self, produto_id):
         try:
@@ -70,13 +65,9 @@ class ProdutoDAO:
         except SQLAlchemyError as e:
             print(f"Erro ao deletar o produto: {str(e)}")
             self.session.rollback()
-        finally:
-            self.session.close()
 
     def listar_produtos(self):
         try:
             return self.session.query(ProdutoInstacia).all()
         except SQLAlchemyError as e:
             print(f"Erro ao listar os produtos: {str(e)}")
-        finally:
-            self.session.close()

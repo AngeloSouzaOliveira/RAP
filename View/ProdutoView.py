@@ -115,8 +115,7 @@ class ProdutoView:
 
         if (produto_id is not None):
             produto = self.dao.buscar_produto_por_id(produto_id)
-
-            if produto:
+            if produto is not None:
 
                 janela_atualizacao = tk.Toplevel(self.tela)
                 janela_atualizacao.title("Atualizar Produto")
@@ -153,9 +152,6 @@ class ProdutoView:
                     janela_atualizacao.destroy()
 
                     messagebox.showinfo("Sucesso", "Produto atualizado com sucesso!")
-
-                    
-
 
                 botao_confirmar = tk.Button(janela_atualizacao, text="Confirmar Atualização", command=confirmar_atualizacao)
                 botao_confirmar.grid(row=6, column=1, padx=5, pady=10)
